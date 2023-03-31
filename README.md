@@ -19,6 +19,12 @@ Install dependencies
   npm install
 ```
 
+Create a .env file in the root of your project and add the following environment variables
+
+```js
+  SERVER_PORT=
+```
+
 Start the server
 
 ```bash
