@@ -1,7 +1,8 @@
-require('dotenv').config();
+import express from 'express';
+import * as dotenv from 'dotenv';
+import router from './src/routes.js';
 
-const express = require("express");
-const router = require('./src/routes');
+dotenv.config();
 const app = express();
 const port = process.env.SERVER_PORT;
 
