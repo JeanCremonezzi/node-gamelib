@@ -1,8 +1,8 @@
 import express, {request, response} from 'express';
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.send("Hello World!");
-})
+import { router as gameRoutes } from "./games.js";
+
+router.use(gameRoutes);
 
 export default router;
