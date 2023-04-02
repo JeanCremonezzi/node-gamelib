@@ -1,8 +1,10 @@
-import express, {request, response} from 'express';
+import express from 'express';
 const router = express.Router();
 
-import { router as gameRoutes } from "./games.js";
+import { router as gamesModule} from "./games.js";
+import { router as userModule } from "./user.js";
 
-router.use(gameRoutes);
+router.use(gamesModule);
+router.use(userModule);
 
 export default router;
