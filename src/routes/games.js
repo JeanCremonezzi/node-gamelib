@@ -3,8 +3,7 @@ const router = express.Router();
 import axios from "axios";
 
 const FIELDS = `fields name, platforms.name, cover.image_id, release_dates.human, platforms.name, platforms.platform_logo.image_id;
-                where category = (0, 4, 6, 8, 9, 10, 11);  
-                limit 16;`;
+                limit 25;`;
 
 /** Get API games by name */
 router.get("/games", (req, res) => {
@@ -17,7 +16,7 @@ router.get("/games", (req, res) => {
         },
         data:  `search "${req.query.name}"; 
                 ${FIELDS}
-                where category = (0, 3, 4, 6, 8, 9, 10, 11);`
+                where category = (0);`
     })
     .then((apiRes) => {
         res.send(transformData(apiRes.data));
