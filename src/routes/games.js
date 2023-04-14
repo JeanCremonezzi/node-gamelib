@@ -1,6 +1,5 @@
-import express from 'express';
-const router = express.Router();
-import axios from "axios";
+const router = require('express').Router();
+const axios = require("axios");
 
 const FIELDS = `fields name, platforms.name, cover.image_id, release_dates.human, platforms.name, platforms.platform_logo.image_id;
                 limit 25;`;
@@ -67,4 +66,4 @@ const transformData = (data) => {
     return formatted;
 }
 
-export { router };
+module.exports = router;

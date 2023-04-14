@@ -1,10 +1,9 @@
-import express from 'express';
-const router = express.Router();
+const router = require('express').Router();
 
-import { router as gamesModule } from "./games.js";
-import { router as userModule  } from "./user.js";
+const gamesModule = require("./games.js");
+const userModule = require("./user.js");
 
 router.use(gamesModule);
 router.use(userModule);
 
-export default router;
+module.exports = router;

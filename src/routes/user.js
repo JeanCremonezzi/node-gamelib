@@ -1,5 +1,4 @@
-import express from 'express';
-const router = express.Router();
+const router = require('express').Router();
 
 router.post("/user/signup", (req, res) => {
     // TODO
@@ -16,4 +15,4 @@ router.put("/user/resetpassword", (req, res) => {
     res.send("Resetpassword Endpoint");
 })
 
-export { router };
+module.exports = router;
