@@ -5,6 +5,7 @@ const router = require('./src/routes/router.js');
 const app = express();
 const port = process.env.SERVER_PORT;
 
+app.use(express.json());
 app.use(router);
 
 app.listen(port, () => {
