@@ -42,3 +42,4 @@ npm run dev
 * Dotenv
 * Axios
 * MySQL2
+* Sequelize
