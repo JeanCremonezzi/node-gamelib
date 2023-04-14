@@ -1,18 +1,9 @@
 const router = require('express').Router();
 
-router.post("/user/signup", (req, res) => {
-    // TODO
-    res.send("Signup Endpoint");
-})
+const UserController = require("../controllers/UserController.js");
 
-router.get("/user/signin", (req, res) => {
-    // TODO
-    res.send("Signin Endpoint");
-})
-
-router.put("/user/resetpassword", (req, res) => {
-    // TODO
-    res.send("Resetpassword Endpoint");
-})
+router.post("/user/signup", UserController.signUp);
+router.post("/user/signin", UserController.signIn);
+router.put("/user/resetpassword", UserController.resetPassword);
 
 module.exports = router;

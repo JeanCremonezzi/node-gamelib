@@ -4,7 +4,7 @@ const FIELDS = `fields name, platforms.name, cover.image_id, release_dates.human
                 limit 25;`;
 
 exports.getByName = async (req, res) => {
-    axios({
+    await axios({
         method: "POST",
         url: `${process.env.API_URL}/games`,
         headers: {
@@ -21,7 +21,7 @@ exports.getByName = async (req, res) => {
 };
 
 exports.getById = async (req, res) => {
-    axios({
+    await axios({
         method: "POST",
         url: `${process.env.API_URL}/games`,
         headers: {
