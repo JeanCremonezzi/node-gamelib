@@ -1,9 +1,10 @@
 const router = require('express').Router();
 
 const UserController = require("../controllers/UserController.js");
+const UserMiddleware = require("../middlewares/UserMiddleware.js");
 
-router.post("/user/signup", UserController.signUp);
-router.post("/user/signin", UserController.signIn);
+router.post("/user/signup", UserMiddleware.validateSignup, UserController.signUp);
+router.post("/user/signin", UserMiddleware.validateSignin, UserController.signIn);
 router.put("/user/resetpassword", UserController.resetPassword);
 
 module.exports = router;
