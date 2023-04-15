@@ -3,5 +3,5 @@ exports.jsonIsValid = (obj, fields) => {
 }
 
 exports.fieldsAreValid = (obj) => {
-    return Object.values(obj).every((value) => value != null && value.trim() != "");
+    return Object.values(obj).every((value) => value != null && value.toString().trim() != "");
 }

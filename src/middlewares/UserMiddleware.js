@@ -90,3 +90,40 @@ exports.validateSignin = async (req, res, next) => {
 
     next();
 }
+
+exports.validateResetPassword = async (req, res, next) => {
+    const data = {...req.body};
+
+    /** Checks if JSON object has the required fields */
+    if (!jsonIsValid(data, ["id", "newPassword"])) {
+        return res.status(400).json({
+            "error": "Invalid JSON format.",
+            "message": "Request body must have id and newPassword fields."
+        });
+    }
+
+    /** Checks JSON fields aren't null or empty */
+    if (!fieldsAreValid(data)) {
+        return res.status(400).json({
+            "error": "One or more fields are null or empty.",
+            "message": "id and newPassword fields must be provided."
+        });
+    }
+
+    /** Checks if id is registered and password isn't the same */
+    const userById = await models.User.findOne({
+        where: {
+            id: data.id
+        },
+        attributes: ["password"]
+    });
+    if (!userById || userById.password == data.newPassword) {
+        return res.status(401).json({
+            "error": "User or password not found/invalid",
+            "message": "User id not found or password not changed"
+        });
+
+    }
+
+    next();
+}

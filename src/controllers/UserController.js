@@ -3,11 +3,11 @@ const models = require("../database/models/index.js");
 exports.signUp = async (req, res) => {
     const data = {...req.body};
 
-    /*await models.User.create({
+    await models.User.create({
         username: data.username,
         email: data.email,
         password: data.password
-    });*/
+    });
 
     res.send("User Created");
 }
@@ -28,7 +28,7 @@ exports.signIn = async (req, res) => {
 exports.resetPassword = async (req, res) => {
     const data = {...req.body};
 
-    await models.User.update({password: data.password}, {
+    await models.User.update({password: data.newPassword}, {
         where: {
             id: data.id
         }
