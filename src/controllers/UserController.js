@@ -1,5 +1,6 @@
 const models = require("../database/models/index.js");
 const bcrypt = require("../utils/BCrypt.js");
+const { generateToken } = require("../utils/jwt.js");
 
 exports.signUp = async (req, res) => {
     const data = {...req.body};
@@ -8,33 +9,47 @@ exports.signUp = async (req, res) => {
         username: data.username,
         email: data.email,
         password: bcrypt.hashPassword(data.password)
-    });
 
-    res.send("User Created");
+    }).then((resultEntity) => {
+        const token = generateToken(resultEntity.get({plain:true}));
+
+        res.status(200)
+            .cookie("signin_token", token, {
+                httpOnly: true
+            })
+            .json({message: "User successfully created."});
+    });
 }
 
 exports.signIn = async (req, res) => {
     const data = {...req.body};
 
-    const user = await models.User.findOne({
+    await models.User.findOne({
         raw: true,
         where: {
             email: data.email
         },
-        attributes: ["id", "username", "email", "password"]
-    });
+        attributes: ["id", "username", "email"]
+    
+    }).then((resultEntity) => {
+        const token = generateToken(resultEntity);
 
-    res.send(user);
+        res.status(200)
+            .cookie("signin_token", token, {
+                httpOnly: true
+            })
+            .json({message: "User authorized."});
+    })
 }
 
 exports.resetPassword = async (req, res) => {
     const data = {...req.body};
-
+    
     await models.User.update({password: bcrypt.hashPassword(data.newPassword)}, {
         where: {
-            id: data.id
+            id: data.userData.id
         }
+    }).then(() => {
+        res.status(200).json({message: "Password changed."});
     });
-
-    res.send("Password reset");
 }

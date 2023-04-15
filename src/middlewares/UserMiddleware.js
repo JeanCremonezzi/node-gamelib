@@ -96,14 +96,14 @@ exports.validateSignin = async (req, res, next) => {
     next();
 }
 
-exports.validateResetPassword = async (req, res, next) => {
+exports.validateResetPassword = async (req, res, next) => {    
     const data = {...req.body};
 
     /** Checks if JSON object has the required fields */
-    if (!jsonIsValid(data, ["id", "newPassword"])) {
+    if (!jsonIsValid(data, ["newPassword"])) {
         return res.status(400).json({
             "error": "Invalid JSON format.",
-            "message": "Request body must have id and newPassword fields."
+            "message": "Request body must have a newPassword field."
         });
     }
 
@@ -111,26 +111,8 @@ exports.validateResetPassword = async (req, res, next) => {
     if (!fieldsAreValid(data)) {
         return res.status(400).json({
             "error": "One or more fields are null or empty.",
-            "message": "id and newPassword fields must be provided."
+            "message": "newPassword field must be provided."
         });
-    }
-
-    /** Checks if id is registered and password isn't the same */
-    const userById = await models.User.findOne({
-        raw: true,
-        where: {
-            id: data.id
-        },
-        attributes: ["password"]
-    });
-
-    const match = await bcrypt.checkPassword(data.newPassword, userById.password);
-    if (!userById || match) {
-        return res.status(401).json({
-            "error": "User or password not found/invalid",
-            "message": "User id not found or password not changed"
-        });
-
     }
 
     next();
