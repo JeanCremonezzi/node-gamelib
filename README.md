@@ -58,3 +58,4 @@ npm run dev
 * Axios
 * MySQL2
 * Sequelize
+* JWT
