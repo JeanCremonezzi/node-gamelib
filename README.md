@@ -59,3 +59,4 @@ npm run dev
 * MySQL2
 * Sequelize
 * JWT
+* BCrypt
