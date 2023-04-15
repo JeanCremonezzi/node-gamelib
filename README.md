@@ -60,3 +60,4 @@ npm run dev
 * Sequelize
 * JWT
 * BCrypt
+* Cookie-parser
