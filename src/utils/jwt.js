@@ -1,3 +1,4 @@
+require('dotenv').config();
 const jwt = require("jsonwebtoken");
 
 exports.generateToken = (obj) => {
@@ -5,9 +6,9 @@ exports.generateToken = (obj) => {
         id: obj.id,
         username: obj.username,
         email: obj.email
-    }, 'secret')
+    }, process.env.JWT_SECRET)
 }
 
 exports.decode = (token) => {
-    return jwt.verify(token, 'secret');
+    return jwt.verify(token, process.env.JWT_SECRET);
 }
