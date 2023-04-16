@@ -30,6 +30,8 @@ Create a .env file in the root of your project and add the following environment
   DB_NAME=
   DB_USER=
   DB_PASS=
+
+  JWT_SECRET=
 ```
 
 Install sequelize-cli
