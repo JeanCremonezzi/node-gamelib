@@ -14,7 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   GamesCollections.init({
-    game: DataTypes.INTEGER,
+    game: {
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    },
+    user: {
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    },
     yearPlayed: DataTypes.INTEGER,
     hoursPlayed: DataTypes.INTEGER,
     platform: DataTypes.STRING
