@@ -45,5 +45,18 @@ exports.removeFromCollection = async (req, res) => {
 }
 
 exports.updateFromCollection = async (req, res) => {
-    res.send("UPDATE FROM COLLECTION");
+    const data = {...req.body};
+
+    await models.GamesCollections.update({
+        platform: data.platform,
+        yearPlayed: data.yearPlayed,
+        hoursPlayed: data.hoursPlayed,
+    },{
+        where: {
+            game: data.game,
+            user: data.userData.id
+        }
+    }).then(() => {
+        res.status(200).json({message: "Game updated in collection."});
+    });
 }

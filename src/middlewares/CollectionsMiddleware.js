@@ -55,3 +55,37 @@ exports.validateRemoveGame = async (req, res, next) => {
 
     next();
 }
+
+exports.validateUpdateGame = async (req, res, next) => {
+    const data = {...req.body};
+
+    if (!jsonIsValid(data, ["game", "platform", "yearPlayed", "hoursPlayed"])) {
+        return res.status(400).json({
+            "error": "Invalid JSON format.",
+            "message": "Request body must have game, platform, yearPlayed and hoursPlayed fields."
+        });
+    }
+
+    if (!fieldsAreValid(data)) {
+        return res.status(400).json({
+            "error": "One or more fields are null or empty.",
+            "message": "Game, platform, yearPlayed and hoursPlayed fields must be provided."
+        });
+    }
+
+    const gameInCollection = await models.GamesCollections.count({
+        where: {
+            game: data.game,
+            user: data.userData.id
+        }
+    });
+
+    if (gameInCollection == 0) {
+        return res.status(404).json({
+            "error": "Game not found.",
+            "message": "This game isn't in user's collection."
+        });        
+    }
+
+    next();
+}
