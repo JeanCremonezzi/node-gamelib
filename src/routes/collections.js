@@ -1,8 +1,11 @@
 const router = require('express').Router();
 
-router.get("/:id", (req, res) => res.send("GET USER COLLECTION"));
-router.post("/", (req, res) => res.send("ADD TO COLLECTION"));
-router.delete("/", (req, res) => res.send("REMOVE FROM COLLECTION"));
-router.put("/", (req, res) => res.send("UPDATE FROM COLLECTION"));
+const CollectionsController = require("../controllers/CollectionsController.js");
+const CollectionsMiddleware = require("../middlewares/CollectionsMiddleware.js");
+
+router.get("/", CollectionsController.userCollection);
+router.post("/", CollectionsMiddleware.validateAddGame, CollectionsController.addToCollection);
+router.delete("/", CollectionsController.removeFromCollection);
+router.put("/", CollectionsController.updateFromCollection);
 
 module.exports = router;
