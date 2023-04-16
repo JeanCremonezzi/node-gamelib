@@ -1,7 +1,17 @@
 const models = require("../database/models/index.js");
 
 exports.userCollection = async (req, res) => {
-    res.send("GET USER COLLECTION");
+    const data = {...req.body};
+
+    await models.GamesCollections.findAll({
+        raw: true,
+        where: {
+            user: data.userData.id,
+        },
+        attributes: ["game", "platform", "yearPlayed", "hoursPlayed"]
+    }).then((resultEntity) => {
+        res.status(200).json(resultEntity);
+    });
 }
 
 exports.addToCollection = async (req, res) => {
