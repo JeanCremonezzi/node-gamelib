@@ -30,7 +30,18 @@ exports.addToCollection = async (req, res) => {
 }
 
 exports.removeFromCollection = async (req, res) => {
-    res.send("REMOVE FROM COLLECTION");
+    const data = {...req.body};
+    const game = req.params.id;
+
+    await models.GamesCollections.destroy({
+        where: {
+            game: game,
+            user: data.userData.id
+        }
+    }).then(() => {
+        res.status(200).json({message: "Game removed from collection."});
+    });
+
 }
 
 exports.updateFromCollection = async (req, res) => {

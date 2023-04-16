@@ -34,3 +34,24 @@ exports.validateAddGame = async (req, res, next) => {
 
     next();
 }
+
+exports.validateRemoveGame = async (req, res, next) => {
+    const data = {...req.body};
+    const game = req.params.id;
+
+    const gameInCollection = await models.GamesCollections.count({
+        where: {
+            game: game,
+            user: data.userData.id
+        }
+    });
+
+    if (gameInCollection == 0) {
+        return res.status(404).json({
+            "error": "Game not found.",
+            "message": "This game isn't in user's collection."
+        });        
+    }
+
+    next();
+}
