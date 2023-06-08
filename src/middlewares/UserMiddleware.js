@@ -84,7 +84,7 @@ exports.validateSignin = async (req, res, next) => {
         attributes: ["email", "password"]
     });
 
-    if (!userByEmail || await bcrypt.checkPassword(data.password, userByEmail.password)) {
+    if (!userByEmail || !(await bcrypt.checkPassword(data.password, userByEmail.password))) {
         return res.status(401).json({
             "error": "Wrong credentials",
             "message": "Invalid email or password."
