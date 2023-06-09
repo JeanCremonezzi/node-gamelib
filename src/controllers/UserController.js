@@ -15,7 +15,7 @@ exports.signUp = async (req, res) => {
 
         res.status(200)
             .cookie("signin_token", token, {
-                httpOnly: true
+                httpOnly: false
             })
             .json({message: "User successfully created."});
     });
@@ -36,7 +36,7 @@ exports.signIn = async (req, res) => {
 
         res.status(200)
             .cookie("signin_token", token, {
-                httpOnly: true
+                httpOnly: false
             })
             .json({message: "User authorized."});
     })
