@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const FIELDS = `fields name, platforms.name, cover.image_id, release_dates.human, platforms.name, platforms.platform_logo.image_id;
-                limit 25;`;
+                limit 50;`;
 
 exports.getByName = async (req, res) => {
     await axios({
