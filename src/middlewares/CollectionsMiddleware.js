@@ -4,10 +4,10 @@ const { jsonIsValid, fieldsAreValid } = require("../utils/jsonValidator.js");
 exports.validateAddGame = async (req, res, next) => {
     const data = {...req.body};
 
-    if (!jsonIsValid(data, ["game", "platform", "yearPlayed"])) {
+    if (!jsonIsValid(data, ["gameId", "gameName", "platform", "yearPlayed"])) {
         return res.status(400).json({
             "error": "Invalid JSON format.",
-            "message": "Request body must have game, platform and yearPlayed fields."
+            "message": "Request body must have gameId, gameName, platform and yearPlayed fields."
         });
     }
 
@@ -20,7 +20,7 @@ exports.validateAddGame = async (req, res, next) => {
 
     const gameInCollection = await models.GamesCollections.count({
         where: {
-            game: data.game,
+            gameId: data.gameId,
             user: data.userData.id
         }
     });
@@ -41,7 +41,7 @@ exports.validateRemoveGame = async (req, res, next) => {
 
     const gameInCollection = await models.GamesCollections.count({
         where: {
-            game: game,
+            gameId: game,
             user: data.userData.id
         }
     });
@@ -59,10 +59,10 @@ exports.validateRemoveGame = async (req, res, next) => {
 exports.validateUpdateGame = async (req, res, next) => {
     const data = {...req.body};
 
-    if (!jsonIsValid(data, ["game", "platform", "yearPlayed", "hoursPlayed"])) {
+    if (!jsonIsValid(data, ["gameId", "gameName", "platform", "yearPlayed", "hoursPlayed"])) {
         return res.status(400).json({
             "error": "Invalid JSON format.",
-            "message": "Request body must have game, platform, yearPlayed and hoursPlayed fields."
+            "message": "Request body must have gameId, gameName, platform, yearPlayed and hoursPlayed fields."
         });
     }
 
@@ -75,7 +75,7 @@ exports.validateUpdateGame = async (req, res, next) => {
 
     const gameInCollection = await models.GamesCollections.count({
         where: {
-            game: data.game,
+            gameId: data.gameId,
             user: data.userData.id
         }
     });

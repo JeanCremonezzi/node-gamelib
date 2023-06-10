@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('GamesCollections', {
-      game: {
+      gameId: {
         type: Sequelize.INTEGER,
         primaryKey: true
       },
@@ -14,6 +14,9 @@ module.exports = {
           model: 'Users',
           key: 'id'
         }
+      },
+      gameName:  {
+        type: Sequelize.STRING
       },
       yearPlayed: {
         type: Sequelize.INTEGER

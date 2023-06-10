@@ -8,7 +8,7 @@ exports.userCollection = async (req, res) => {
         where: {
             user: data.userData.id,
         },
-        attributes: ["game", "platform", "yearPlayed", "hoursPlayed"]
+        attributes: ["gameId", "gameName", "platform", "yearPlayed", "hoursPlayed"]
     }).then((resultEntity) => {
         res.status(200).json(resultEntity);
     });
@@ -18,7 +18,8 @@ exports.addToCollection = async (req, res) => {
     const data = {...req.body};
 
     await models.GamesCollections.create({
-        game: data.game,
+        gameId: data.gameId,
+        gameName: data.gameName,
         user: data.userData.id,
         platform: data.platform,
         yearPlayed: data.yearPlayed,
@@ -35,7 +36,7 @@ exports.removeFromCollection = async (req, res) => {
 
     await models.GamesCollections.destroy({
         where: {
-            game: game,
+            gameId: game,
             user: data.userData.id
         }
     }).then(() => {
@@ -53,7 +54,7 @@ exports.updateFromCollection = async (req, res) => {
         hoursPlayed: data.hoursPlayed,
     },{
         where: {
-            game: data.game,
+            gameId: data.game,
             user: data.userData.id
         }
     }).then(() => {

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   GamesCollections.init({
-    game: {
+    gameId: {
       type: DataTypes.INTEGER,
       primaryKey: true
     },
@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       primaryKey: true
     },
+    gameName:  DataTypes.STRING,
     yearPlayed: DataTypes.INTEGER,
     hoursPlayed: DataTypes.INTEGER,
     platform: DataTypes.STRING
