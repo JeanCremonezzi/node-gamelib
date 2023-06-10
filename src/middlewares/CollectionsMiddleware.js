@@ -59,10 +59,10 @@ exports.validateRemoveGame = async (req, res, next) => {
 exports.validateUpdateGame = async (req, res, next) => {
     const data = {...req.body};
 
-    if (!jsonIsValid(data, ["gameId", "gameName", "platform", "yearPlayed", "hoursPlayed"])) {
+    if (!jsonIsValid(data, ["gameId", "platform", "yearPlayed", "hoursPlayed"])) {
         return res.status(400).json({
             "error": "Invalid JSON format.",
-            "message": "Request body must have gameId, gameName, platform, yearPlayed and hoursPlayed fields."
+            "message": "Request body must have gameId, platform, yearPlayed and hoursPlayed fields."
         });
     }
 

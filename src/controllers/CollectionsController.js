@@ -54,7 +54,7 @@ exports.updateFromCollection = async (req, res) => {
         hoursPlayed: data.hoursPlayed,
     },{
         where: {
-            gameId: data.game,
+            gameId: data.gameId,
             user: data.userData.id
         }
     }).then(() => {
